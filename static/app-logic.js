@@ -19,10 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabResults = document.getElementById('tab-results');
     const inputPanel = document.getElementById('input-panel');
     const resultsPanel = document.getElementById('results-panel');
-
-    // --- START: NEW ELEMENT FOR DESKTOP BACK BUTTON ---
     const backToFormBtn = document.getElementById('back-to-form-btn');
-    // --- END: NEW ELEMENT ---
 
 
     // --- CROP DATA ---
@@ -95,6 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (backToFormBtn) {
         backToFormBtn.addEventListener('click', () => {
             dashboard.classList.add('hidden');
+            // This makes sure the input panel is visible on desktop, fixing the blank page issue.
+            inputPanel.classList.remove('hidden'); 
         });
     }
 
@@ -139,9 +138,12 @@ document.addEventListener('DOMContentLoaded', () => {
         dashboard.classList.add('hidden');
         loadingSpinner.classList.remove('hidden');
         
-        if(resultsPanel.classList.contains('hidden')){
-            resultsPanel.classList.remove('hidden');
-            inputPanel.classList.add('hidden');
+        // This logic is now wrapped in a condition to ONLY run on mobile
+        if (window.innerWidth < 1024) {
+            if(resultsPanel.classList.contains('hidden')){
+                resultsPanel.classList.remove('hidden');
+                inputPanel.classList.add('hidden'); // This was the line causing the problem on desktop
+            }
         }
 
         const inputData = {
@@ -252,7 +254,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('profit-result').classList.remove('hidden');
     });
 
-    // --- DISPLAY FUNCTIONS ---
+    // --- DISPLAY FUNCTIONS (No changes needed here) ---
+    // ...
     function displayCropInfo(data) {
         const cropName = data.crop_name.charAt(0).toUpperCase() + data.crop_name.slice(1);
         const detailsContainer = document.getElementById('crop-info-details');
