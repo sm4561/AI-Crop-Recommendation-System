@@ -402,11 +402,3 @@ document.addEventListener('DOMContentLoaded', () => {
     updateSliderBackground(humiditySlider);
     setupWelcomeModal(); // Initialize the welcome modal
 });
-
-
-
-
-
-
-
-
