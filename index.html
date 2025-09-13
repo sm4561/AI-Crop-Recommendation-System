@@ -37,7 +37,6 @@
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
 
-    <!-- Header -->
     <header class="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-10">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3">
@@ -69,26 +68,30 @@
     </header>
 
     <main class="container mx-auto px-6 py-8">
+        
+        <div class="sm:hidden flex border-b border-gray-300 dark:border-gray-700 mb-4">
+            <button id="tab-input" class="flex-1 py-3 font-semibold border-b-2 border-green-500 text-green-500">Enter Data</button>
+            <button id="tab-results" class="flex-1 py-3 font-semibold text-gray-500">View Results</button>
+        </div>
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Left Column: Input Form & Crop Guide -->
-            <div class="lg:col-span-1 space-y-8">
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg h-fit">
+            <div id="input-panel" class="lg:col-span-1 space-y-8">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg h-fit">
                     <h2 class="text-xl font-bold mb-4 border-b dark:border-gray-600 pb-2" data-translate-key="enterFarmData">Enter Farm Data</h2>
                     <form id="crop-form">
                         <h3 class="font-semibold text-green-700 dark:text-green-500 mt-4 mb-2" data-translate-key="soilParameters">Soil Parameters (per kg)</h3>
                         <div class="space-y-4">
                             <div>
                                 <label for="nitrogen" class="block text-sm font-medium" data-translate-key="nitrogen">Nitrogen (N) Content</label>
-                                <input type="number" id="nitrogen" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm" placeholder="e.g., 90" required>
-                            </div>
+                                <input type="number" id="nitrogen" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm h-12" placeholder="e.g., 90" required>
+                                </div>
                             <div>
                                 <label for="phosphorus" class="block text-sm font-medium" data-translate-key="phosphorus">Phosphorus (P) Content</label>
-                                <input type="number" id="phosphorus" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm" placeholder="e.g., 42" required>
-                            </div>
+                                <input type="number" id="phosphorus" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm h-12" placeholder="e.g., 42" required>
+                                </div>
                             <div>
                                 <label for="potassium" class="block text-sm font-medium" data-translate-key="potassium">Potassium (K) Content</label>
-                                <input type="number" id="potassium" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm" placeholder="e.g., 43" required>
-                            </div>
+                                <input type="number" id="potassium" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm h-12" placeholder="e.g., 43" required>
+                                </div>
                             <div>
                                 <label for="ph" class="block text-sm font-medium" data-translate-key="ph">Soil pH (0-14)</label>
                                 <input type="range" id="ph" min="0" max="14" step="0.1" value="7" class="mt-1 color-slider">
@@ -97,8 +100,8 @@
                         </div>
                         <div class="mt-6 mb-2 flex justify-between items-center">
                             <h3 class="font-semibold text-green-700 dark:text-green-500" data-translate-key="climaticConditions">Climatic Conditions</h3>
-                            <button type="button" id="get-location-weather" class="text-xs bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-2 rounded-md flex items-center">
-                                <i class="fas fa-map-marker-alt mr-1"></i>
+                             <button type="button" id="get-location-weather" class="text-sm bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-3 rounded-md flex items-center">
+                            <i class="fas fa-map-marker-alt mr-1"></i>
                                 <span id="weather-button-text" data-translate-key="useMyLocation">Use My Location</span>
                                 <i id="weather-spinner" class="fas fa-spinner fa-spin ml-2 hidden"></i>
                             </button>
@@ -106,8 +109,8 @@
                         <div class="space-y-4">
                             <div>
                                 <label for="temperature" class="block text-sm font-medium" data-translate-key="temperature">Temperature (°C)</label>
-                                <input type="number" step="0.1" id="temperature" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm" placeholder="e.g., 20.8" required>
-                            </div>
+                                <input type="number" step="0.1" id="temperature" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm h-12" placeholder="e.g., 20.8" required>
+                                </div>
                             <div>
                                 <label for="humidity" class="block text-sm font-medium" data-translate-key="humidity">Humidity (%)</label>
                                 <input type="range" id="humidity" min="0" max="100" step="1" value="50" class="mt-1 color-slider">
@@ -115,50 +118,52 @@
                             </div>
                              <div>
                                 <label for="rainfall" class="block text-sm font-medium" data-translate-key="rainfall">Rainfall (mm)</label>
-                                <input type="number" step="0.1" id="rainfall" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm" placeholder="e.g., 202.9" required>
-                            </div>
+                                <input type="number" step="0.1" id="rainfall" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm h-12" placeholder="e.g., 202.9" required>
+                                </div>
                         </div>
-                        <button type="submit" class="mt-8 w-full bg-green-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-green-700">
-                            <i class="fas fa-search mr-2"></i><span data-translate-key="getRecommendation">Get Recommendation</span>
+                        <button type="submit" class="mt-8 w-full bg-green-600 text-white py-4 px-4 rounded-lg font-semibold hover:bg-green-700">
+                        <i class="fas fa-search mr-2"></i><span data-translate-key="getRecommendation">Get Recommendation</span>
                         </button>
                     </form>
                 </div>
                 
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg h-fit">
-                    <h2 class="text-xl font-bold mb-4 border-b dark:border-gray-600 pb-2" data-translate-key="cropInfoGuide">Crop Information Guide</h2>
-                    <div class="space-y-4">
-                        <div>
-                            <label for="crop-search-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Search Crop</label>
-                            <div class="relative mt-1">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-search text-gray-400"></i>
+                    <button type="button" class="accordion-button flex items-center justify-between w-full font-bold text-left text-xl">
+                        <span data-translate-key="cropInfoGuide">Crop Information Guide</span>
+                        <i class="fas fa-chevron-down accordion-icon transition-transform duration-200"></i>
+                    </button>
+                    <div class="accordion-content hidden pt-4 mt-4 border-t dark:border-gray-600">
+                        <div class="space-y-4">
+                            <div>
+                                <label for="crop-search-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Search Crop</label>
+                                <div class="relative mt-1">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-search text-gray-400"></i>
+                                    </div>
+                                    <input type="text" id="crop-search-input" class="block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm pl-10 focus:ring-indigo-500 focus:border-indigo-500 h-12" placeholder="Type to search...">
                                 </div>
-                                <input type="text" id="crop-search-input" class="block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm pl-10 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Type to search...">
+                            </div>
+                            <div class="flex items-end space-x-2">
+                                <div class="flex-grow">
+                                    <label for="crop-selector" class="block text-sm font-medium" data-translate-key="selectCrop">Select a Crop</label>
+                                    <select id="crop-selector" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm h-12"></select>
+                                </div>
+                                <button id="get-crop-info" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white h-12 px-4 rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 shadow-lg transform hover:scale-105 transition-transform duration-200">
+                                    <i class="fas fa-info-circle"></i>
+                                </button>
                             </div>
                         </div>
-                        <div class="flex items-end space-x-2">
-                            <div class="flex-grow">
-                                <label for="crop-selector" class="block text-sm font-medium" data-translate-key="selectCrop">Select a Crop</label>
-                                <select id="crop-selector" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm h-11"></select>
-                            </div>
-                            <button id="get-crop-info" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white h-11 px-4 rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 shadow-lg transform hover:scale-105 transition-transform duration-200">
-                                <i class="fas fa-info-circle"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div id="crop-info-display" class="hidden mt-6">
-                        <h3 id="crop-info-name" class="text-xl font-bold mb-4 text-center"></h3>
-                        <div id="crop-info-details" class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                           <!-- JS will populate this -->
+                        <div id="crop-info-display" class="hidden mt-6">
+                            <h3 id="crop-info-name" class="text-xl font-bold mb-4 text-center"></h3>
+                            <div id="crop-info-details" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                               </div>
                         </div>
                     </div>
                 </div>
+                </div>
 
-            </div>
-
-            <!-- Right Column: Dashboard -->
-            <div class="lg:col-span-2">
-                <div id="loading-spinner" class="hidden flex justify-center items-center h-full"><div class="loader"></div></div>
+            <div id="results-panel" class="hidden lg:block lg:col-span-2">
+            <div id="loading-spinner" class="hidden flex justify-center items-center h-full"><div class="loader"></div></div>
                 <div id="recommendation-dashboard" class="hidden">
                     
                     <div class="bg-gradient-to-br from-green-400 to-blue-500 dark:from-green-600 dark:to-blue-700 p-6 rounded-xl shadow-2xl mb-6 text-white text-center">
@@ -185,7 +190,6 @@
                         <div class="lg:col-span-2 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
                             <h3 class="text-lg font-bold mb-4 border-b dark:border-gray-600 pb-2 flex items-center"><i class="fas fa-lightbulb text-yellow-400 mr-2"></i><span data-translate-key="analysisAndTips">Analysis & Pro Tips</span></h3>
                             <div id="tips-accordion" class="space-y-2">
-                                <!-- Item 1: Soil Health Analysis -->
                                 <div>
                                     <button type="button" class="accordion-button flex items-center justify-between w-full p-4 font-semibold text-left text-gray-800 bg-gray-100 rounded-lg dark:bg-gray-700 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none">
                                         <span class="flex items-center"><i class="fas fa-vial mr-3 text-blue-500"></i><span data-translate-key="soilHealthAnalysis">Soil Health Analysis</span></span>
@@ -193,11 +197,9 @@
                                     </button>
                                     <div class="accordion-content hidden p-4 bg-white dark:bg-gray-800 border border-t-0 border-gray-200 dark:border-gray-700 rounded-b-lg">
                                         <ul id="analysis-details" class="space-y-3 text-sm">
-                                            <!-- JS will populate this with comparison details -->
-                                        </ul>
+                                            </ul>
                                     </div>
                                 </div>
-                                <!-- Item 2: Fertilizer Tip -->
                                 <div>
                                      <button type="button" class="accordion-button flex items-center justify-between w-full p-4 font-semibold text-left text-gray-800 bg-gray-100 rounded-lg dark:bg-gray-700 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none">
                                         <span class="flex items-center"><i class="fas fa-prescription-bottle mr-3 text-green-500"></i><span data-translate-key="fertilizerTip">Fertilizer Tip</span></span>
@@ -207,7 +209,6 @@
                                         <p id="fertilizer-tip" class="text-sm text-gray-600 dark:text-gray-400"></p>
                                     </div>
                                 </div>
-                                <!-- Item 3: Irrigation Tip -->
                                 <div>
                                      <button type="button" class="accordion-button flex items-center justify-between w-full p-4 font-semibold text-left text-gray-800 bg-gray-100 rounded-lg dark:bg-gray-700 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none">
                                         <span class="flex items-center"><i class="fas fa-tint mr-3 text-cyan-500"></i><span data-translate-key="irrigationTip">Irrigation Tip</span></span>
@@ -225,13 +226,13 @@
                             <div class="space-y-3">
                                 <div>
                                     <label for="land-size" class="block text-sm font-medium" data-translate-key="landSize">Land Size (in acres)</label>
-                                    <input type="number" id="land-size" class="mt-1 block w-full rounded-md dark:bg-gray-700" value="1">
+                                    <input type="number" id="land-size" class="mt-1 block w-full rounded-md dark:bg-gray-700 h-12" value="1">
                                 </div>
                                 <div>
                                     <label for="market-price" class="block text-sm font-medium" data-translate-key="marketPrice">Expected Market Price (per quintal)</label>
-                                    <input type="number" id="market-price" class="mt-1 block w-full rounded-md dark:bg-gray-700" value="2000">
+                                    <input type="number" id="market-price" class="mt-1 block w-full rounded-md dark:bg-gray-700 h-12" value="2000">
                                 </div>
-                                <button id="calculate-profit" class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600" data-translate-key="calculate">Calculate</button>
+                                <button id="calculate-profit" class="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600" data-translate-key="calculate">Calculate</button>
                             </div>
                             <div id="profit-result" class="mt-4 text-center hidden">
                                 <p class="text-gray-600 dark:text-gray-400"><span data-translate-key="expectedYield">Expected Yield</span>: <span id="expected-yield" class="font-bold"></span> quintals</p>
@@ -244,7 +245,6 @@
         </div>
     </main>
     
-    <!-- NEW: Welcome Modal -->
     <div id="welcome-modal-backdrop" class="fixed inset-0 bg-black bg-opacity-60 z-40 hidden"></div>
     <div id="welcome-modal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 rounded-lg shadow-2xl p-8 w-11/12 max-w-2xl z-50 hidden">
         <div class="text-center">
@@ -273,15 +273,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
