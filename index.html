@@ -267,11 +267,13 @@
         </div>
     </div>
     
-    <script src="./app-logic.js"></script>
-    <script src="./theme.js"></script>
-    <script src="./language.js"></script>
+    <script src="{{ url_for('static', filename='app-logic.js') }}"></script>
+    <script src="{{ url_for('static', filename='theme.js') }}"></script>
+    <script src="{{ url_for('static', filename='language.js') }}"></script>
+
 </body>
 </html>
+
 
 
 
