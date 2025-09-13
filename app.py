@@ -1,14 +1,15 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import joblib
 import numpy as np
 import pandas as pd
+import os
 
-app = Flask(__name__)   # ✅ Corrected
-
+# --- Initialize App ---
+app = Flask(__name__, template_folder='.', static_folder='.')
 CORS(app)
 
-# --- Step 1: Load Model and Data at Startup ---
+# --- Load Model and Data ---
 try:
     model = joblib.load('crop_model.joblib')
     crop_data_df = pd.read_csv('Crop_recommendation.csv')
@@ -19,16 +20,19 @@ except Exception as e:
     crop_data_df = None
 
 
-# --- Step 2: UPDATED Analysis and Tips Function ---
+# --- Homepage Route ---
+@app.route('/')
+def home():
+    # Serves index.html
+    return render_template('index.html')
+
+
+# --- Analysis and Tips Function ---
 def get_analysis_and_tips(input_data, recommended_crop, df):
-    """Compares user input to ideal crop conditions and provides structured analysis."""
     try:
         ideal_conditions = df[df['label'] == recommended_crop].iloc[0]
 
-        # Create a list of structured analysis results
         analysis_results = []
-
-        # Define parameters and their optimal thresholds for comparison
         params = {
             'N': {'name': 'Nitrogen', 'threshold': 10},
             'P': {'name': 'Phosphorus', 'threshold': 5},
@@ -54,7 +58,6 @@ def get_analysis_and_tips(input_data, recommended_crop, df):
                 "status": status
             })
 
-        # General tips remain as strings
         fertilizer_tip = (
             f"For {recommended_crop}, if Nitrogen is low, consider Urea. "
             f"If Phosphorus is low, DAP is a good option. "
@@ -67,7 +70,7 @@ def get_analysis_and_tips(input_data, recommended_crop, df):
         )
 
         return {
-            "analysis": analysis_results,  # This is now a list of objects
+            "analysis": analysis_results,
             "fertilizer": fertilizer_tip,
             "irrigation": irrigation_tip
         }
@@ -75,12 +78,12 @@ def get_analysis_and_tips(input_data, recommended_crop, df):
         print(f"❌ Error in tip generation: {e}")
         return {
             "analysis": [],
-            "fertilizer": "A standard NPK fertilizer is recommended. Test your soil for specific needs.",
-            "irrigation": "Ensure good soil moisture according to the crop's specific needs."
+            "fertilizer": "Use a balanced NPK fertilizer after soil testing.",
+            "irrigation": "Ensure proper irrigation as per crop needs."
         }
 
 
-# --- Step 3: API Endpoints ---
+# --- API Endpoints ---
 @app.route('/predict', methods=['POST'])
 def predict():
     if not model or crop_data_df is None:
@@ -103,7 +106,6 @@ def predict():
         top_4 = recommendations[:4]
         top_crop_name = top_4[0]['name']
 
-        # Get the new structured tips
         tips = get_analysis_and_tips(data, top_crop_name, crop_data_df)
 
         response = {
@@ -160,6 +162,7 @@ def get_crop_info():
         return jsonify({"error": "Could not retrieve crop info"}), 500
 
 
-# --- Step 4: Run the Flask App ---
-if __name__ == '__main__':   # ✅ Corrected
-    app.run(debug=True)
+# --- Run App ---
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
