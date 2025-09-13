@@ -4,10 +4,10 @@ import joblib
 import numpy as np
 import pandas as pd
 import os
-import requests  # <-- ADD THIS IMPORT
+import requests
 
-# --- Initialize App ---
-app = Flask(__name__, template_folder='.', static_folder='static')
+# --- Initialize App (THIS LINE IS UPDATED) ---
+app = Flask(__name__) # Flask now automatically finds the 'templates' folder
 
 CORS(app)
 
@@ -25,7 +25,7 @@ except Exception as e:
 # --- Homepage Route ---
 @app.route('/')
 def home():
-    # Serves index.html
+    # This will now correctly serve index.html from inside the 'templates' folder
     return render_template('index.html')
 
 
@@ -194,3 +194,4 @@ def get_weather():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
+
