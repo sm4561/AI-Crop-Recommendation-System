@@ -160,12 +160,13 @@ document.addEventListener('DOMContentLoaded', () => {
         weatherSpinner.classList.remove('hidden');
         weatherButton.disabled = true;
 
-        navigator.geolocation.getCurrentPosition(async (position) => {
-            const { latitude: lat, longitude: lon } = position.coords;
-            const apiKey = 'e949eb1087ff76cca1464777fd54c562';
-            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
-            try {
-                const response = await fetch(apiUrl);
+       navigator.geolocation.getCurrentPosition(async (position) => {
+    const { latitude: lat, longitude: lon } = position.coords;
+    // The API URL now points to YOUR backend server
+    const apiUrl = `/get_weather?lat=${lat}&lon=${lon}`; 
+    try {
+        const response = await fetch(apiUrl);
+//...
                 if (!response.ok) throw new Error('Could not fetch weather data.');
                 const weatherData = await response.json();
                 document.getElementById('temperature').value = weatherData.main.temp.toFixed(1);
