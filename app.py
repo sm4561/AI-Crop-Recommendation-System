@@ -4,6 +4,7 @@ import joblib
 import numpy as np
 import pandas as pd
 import os
+import requests  # <-- ADD THIS IMPORT
 
 # --- Initialize App ---
 app = Flask(__name__, template_folder='.', static_folder='static')
@@ -163,8 +164,33 @@ def get_crop_info():
         return jsonify({"error": "Could not retrieve crop info"}), 500
 
 
+# --- NEW SECURE WEATHER ROUTE ---
+@app.route('/get_weather', methods=['GET'])
+def get_weather():
+    lat = request.args.get('lat')
+    lon = request.args.get('lon')
+
+    if not lat or not lon:
+        return jsonify({"error": "Latitude and longitude are required"}), 400
+
+    api_key = os.environ.get('WEATHER_API_KEY')
+    if not api_key:
+        print("❌ WEATHER_API_KEY environment variable not set!")
+        return jsonify({"error": "Weather API key not configured on server"}), 500
+    
+    url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}&units=metric"
+    
+    try:
+        response = requests.get(url)
+        response.raise_for_status()  # Raises an exception for 4XX/5XX errors
+        weather_data = response.json()
+        return jsonify(weather_data)
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Error fetching weather data: {e}")
+        return jsonify({"error": "Failed to fetch weather data"}), 500
+
+
 # --- Run App ---
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
-
