@@ -73,25 +73,26 @@
             <button id="tab-input" class="flex-1 py-3 font-semibold border-b-2 border-green-500 text-green-500">Enter Data</button>
             <button id="tab-results" class="flex-1 py-3 font-semibold text-gray-500">View Results</button>
         </div>
+
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div id="input-panel" class="lg:col-span-1 space-y-8">
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg h-fit">
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg h-fit">
                     <h2 class="text-xl font-bold mb-4 border-b dark:border-gray-600 pb-2" data-translate-key="enterFarmData">Enter Farm Data</h2>
                     <form id="crop-form">
                         <h3 class="font-semibold text-green-700 dark:text-green-500 mt-4 mb-2" data-translate-key="soilParameters">Soil Parameters (per kg)</h3>
                         <div class="space-y-4">
                             <div>
-                                <label for="nitrogen" class="block text-sm font-medium" data-translate-key="nitrogen">Nitrogen (N) Content</label>
-                                <input type="number" id="nitrogen" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm h-12" placeholder="e.g., 90" required>
-                                </div>
+                                <label for="nitrogen" class="block text-sm font-medium text-gray-500 dark:text-gray-400" data-translate-key="nitrogen">Nitrogen (N) Content</label>
+                                <input type="number" id="nitrogen" class="mt-1 block w-full rounded-md bg-gray-100 dark:bg-gray-700/50 border-transparent focus:border-gray-500 focus:bg-white dark:focus:bg-gray-700 focus:ring-0 h-12" placeholder="e.g., 90" required>
+                            </div>
                             <div>
-                                <label for="phosphorus" class="block text-sm font-medium" data-translate-key="phosphorus">Phosphorus (P) Content</label>
-                                <input type="number" id="phosphorus" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm h-12" placeholder="e.g., 42" required>
-                                </div>
+                                <label for="phosphorus" class="block text-sm font-medium text-gray-500 dark:text-gray-400" data-translate-key="phosphorus">Phosphorus (P) Content</label>
+                                <input type="number" id="phosphorus" class="mt-1 block w-full rounded-md bg-gray-100 dark:bg-gray-700/50 border-transparent focus:border-gray-500 focus:bg-white dark:focus:bg-gray-700 focus:ring-0 h-12" placeholder="e.g., 42" required>
+                            </div>
                             <div>
-                                <label for="potassium" class="block text-sm font-medium" data-translate-key="potassium">Potassium (K) Content</label>
-                                <input type="number" id="potassium" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm h-12" placeholder="e.g., 43" required>
-                                </div>
+                                <label for="potassium" class="block text-sm font-medium text-gray-500 dark:text-gray-400" data-translate-key="potassium">Potassium (K) Content</label>
+                                <input type="number" id="potassium" class="mt-1 block w-full rounded-md bg-gray-100 dark:bg-gray-700/50 border-transparent focus:border-gray-500 focus:bg-white dark:focus:bg-gray-700 focus:ring-0 h-12" placeholder="e.g., 43" required>
+                            </div>
                             <div>
                                 <label for="ph" class="block text-sm font-medium" data-translate-key="ph">Soil pH (0-14)</label>
                                 <input type="range" id="ph" min="0" max="14" step="0.1" value="7" class="mt-1 color-slider">
@@ -100,29 +101,29 @@
                         </div>
                         <div class="mt-6 mb-2 flex justify-between items-center">
                             <h3 class="font-semibold text-green-700 dark:text-green-500" data-translate-key="climaticConditions">Climatic Conditions</h3>
-                             <button type="button" id="get-location-weather" class="text-sm bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-3 rounded-md flex items-center">
-                            <i class="fas fa-map-marker-alt mr-1"></i>
+                            <button type="button" id="get-location-weather" class="text-sm bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-3 rounded-md flex items-center">
+                                <i class="fas fa-map-marker-alt mr-1"></i>
                                 <span id="weather-button-text" data-translate-key="useMyLocation">Use My Location</span>
                                 <i id="weather-spinner" class="fas fa-spinner fa-spin ml-2 hidden"></i>
                             </button>
                         </div>
                         <div class="space-y-4">
-                            <div>
-                                <label for="temperature" class="block text-sm font-medium" data-translate-key="temperature">Temperature (°C)</label>
-                                <input type="number" step="0.1" id="temperature" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm h-12" placeholder="e.g., 20.8" required>
-                                </div>
+                             <div>
+                                <label for="temperature" class="block text-sm font-medium text-gray-500 dark:text-gray-400" data-translate-key="temperature">Temperature (°C)</label>
+                                <input type="number" step="0.1" id="temperature" class="mt-1 block w-full rounded-md bg-gray-100 dark:bg-gray-700/50 border-transparent focus:border-gray-500 focus:bg-white dark:focus:bg-gray-700 focus:ring-0 h-12" placeholder="e.g., 20.8" required>
+                            </div>
                             <div>
                                 <label for="humidity" class="block text-sm font-medium" data-translate-key="humidity">Humidity (%)</label>
                                 <input type="range" id="humidity" min="0" max="100" step="1" value="50" class="mt-1 color-slider">
                                 <span class="text-sm slider-value text-gray-600 dark:text-gray-400 float-right" id="humidity-value">50%</span>
                             </div>
                              <div>
-                                <label for="rainfall" class="block text-sm font-medium" data-translate-key="rainfall">Rainfall (mm)</label>
-                                <input type="number" step="0.1" id="rainfall" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm h-12" placeholder="e.g., 202.9" required>
-                                </div>
-                        </div>
+                                <label for="rainfall" class="block text-sm font-medium text-gray-500 dark:text-gray-400" data-translate-key="rainfall">Rainfall (mm)</label>
+                                <input type="number" step="0.1" id="rainfall" class="mt-1 block w-full rounded-md bg-gray-100 dark:bg-gray-700/50 border-transparent focus:border-gray-500 focus:bg-white dark:focus:bg-gray-700 focus:ring-0 h-12" placeholder="e.g., 202.9" required>
+                            </div>
+                            </div>
                         <button type="submit" class="mt-8 w-full bg-green-600 text-white py-4 px-4 rounded-lg font-semibold hover:bg-green-700">
-                        <i class="fas fa-search mr-2"></i><span data-translate-key="getRecommendation">Get Recommendation</span>
+                            <i class="fas fa-search mr-2"></i><span data-translate-key="getRecommendation">Get Recommendation</span>
                         </button>
                     </form>
                 </div>
@@ -134,25 +135,25 @@
                     </button>
                     <div class="accordion-content hidden pt-4 mt-4 border-t dark:border-gray-600">
                         <div class="space-y-4">
-                            <div>
-                                <label for="crop-search-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Search Crop</label>
+                             <div>
+                                <label for="crop-search-input" class="block text-sm font-medium text-gray-500 dark:text-gray-400">Search Crop</label>
                                 <div class="relative mt-1">
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                         <i class="fas fa-search text-gray-400"></i>
                                     </div>
-                                    <input type="text" id="crop-search-input" class="block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm pl-10 focus:ring-indigo-500 focus:border-indigo-500 h-12" placeholder="Type to search...">
+                                    <input type="text" id="crop-search-input" class="block w-full rounded-md bg-gray-100 dark:bg-gray-700/50 border-transparent focus:border-gray-500 focus:bg-white dark:focus:bg-gray-700 focus:ring-0 h-12 pl-10" placeholder="Type to search...">
                                 </div>
                             </div>
                             <div class="flex items-end space-x-2">
                                 <div class="flex-grow">
-                                    <label for="crop-selector" class="block text-sm font-medium" data-translate-key="selectCrop">Select a Crop</label>
-                                    <select id="crop-selector" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm h-12"></select>
+                                    <label for="crop-selector" class="block text-sm font-medium text-gray-500 dark:text-gray-400" data-translate-key="selectCrop">Select a Crop</label>
+                                    <select id="crop-selector" class="mt-1 block w-full rounded-md bg-gray-100 dark:bg-gray-700/50 border-transparent focus:border-gray-500 focus:bg-white dark:focus:bg-gray-700 focus:ring-0 h-12"></select>
                                 </div>
                                 <button id="get-crop-info" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white h-12 px-4 rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 shadow-lg transform hover:scale-105 transition-transform duration-200">
                                     <i class="fas fa-info-circle"></i>
                                 </button>
                             </div>
-                        </div>
+                             </div>
                         <div id="crop-info-display" class="hidden mt-6">
                             <h3 id="crop-info-name" class="text-xl font-bold mb-4 text-center"></h3>
                             <div id="crop-info-details" class="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -160,12 +161,17 @@
                         </div>
                     </div>
                 </div>
-                </div>
+
+            </div>
 
             <div id="results-panel" class="hidden lg:block lg:col-span-2">
-            <div id="loading-spinner" class="hidden flex justify-center items-center h-full"><div class="loader"></div></div>
+                <div id="loading-spinner" class="hidden flex justify-center items-center h-full"><div class="loader"></div></div>
                 <div id="recommendation-dashboard" class="hidden">
                     
+                    <button id="back-to-form-btn" class="hidden lg:flex items-center mb-4 text-sm font-medium text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white transition-colors duration-200">
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        <span>Enter New Data</span>
+                    </button>
                     <div class="bg-gradient-to-br from-green-400 to-blue-500 dark:from-green-600 dark:to-blue-700 p-6 rounded-xl shadow-2xl mb-6 text-white text-center">
                         <h2 class="text-xl font-bold mb-2 text-white/90" data-translate-key="topRecommendation">Top Recommendation</h2>
                         <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mt-4">
