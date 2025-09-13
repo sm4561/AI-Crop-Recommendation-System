@@ -1,4 +1,4 @@
-Document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     // --- CACHE DOM ELEMENTS ---
     const form = document.getElementById('crop-form');
     const loadingSpinner = document.getElementById('loading-spinner');
