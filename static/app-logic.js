@@ -15,6 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let suitabilityChart;
     let allCropsList = [];
 
+    // --- START: NEW ELEMENTS FOR MOBILE TABS ---
+    const tabInput = document.getElementById('tab-input');
+    const tabResults = document.getElementById('tab-results');
+    const inputPanel = document.getElementById('input-panel');
+    const resultsPanel = document.getElementById('results-panel');
+    // --- END: NEW ELEMENTS FOR MOBILE TABS ---
+
+
     // --- CROP DATA ---
     const cropData = {
         'rice': { icon: 'fa-seedling', yieldPerAcre: 24, marketPrice: 2200 }, 
@@ -82,6 +90,33 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     // --- EVENT LISTENERS ---
+
+    // --- START: NEW MOBILE TAB LOGIC ---
+    if (tabInput && tabResults && inputPanel && resultsPanel) {
+        tabInput.addEventListener('click', () => {
+            inputPanel.classList.remove('hidden');
+            resultsPanel.classList.add('hidden');
+            // Style active tab
+            tabInput.classList.add('border-green-500', 'text-green-500');
+            tabInput.classList.remove('text-gray-500');
+            // Style inactive tab
+            tabResults.classList.remove('border-green-500', 'text-green-500');
+            tabResults.classList.add('text-gray-500');
+        });
+
+        tabResults.addEventListener('click', () => {
+            inputPanel.classList.add('hidden');
+            resultsPanel.classList.remove('hidden');
+            // Style active tab
+            tabResults.classList.add('border-green-500', 'text-green-500');
+            tabResults.classList.remove('text-gray-500');
+            // Style inactive tab
+            tabInput.classList.remove('border-green-500', 'text-green-500');
+            tabInput.classList.add('text-gray-500');
+        });
+    }
+    // --- END: NEW MOBILE TAB LOGIC ---
+
     cropSearchInput.addEventListener('input', (e) => {
         const searchTerm = e.target.value.toLowerCase();
         const filteredCrops = allCropsList.filter(crop => crop.toLowerCase().includes(searchTerm));
@@ -102,6 +137,12 @@ document.addEventListener('DOMContentLoaded', () => {
         cropInfoDisplay.classList.add('hidden');
         dashboard.classList.add('hidden');
         loadingSpinner.classList.remove('hidden');
+        // On mobile, show spinner on the results panel if it's hidden
+        if(resultsPanel.classList.contains('hidden')){
+            resultsPanel.classList.remove('hidden');
+            inputPanel.classList.add('hidden');
+        }
+
         const inputData = {
             N: parseFloat(document.getElementById('nitrogen').value),
             P: parseFloat(document.getElementById('phosphorus').value),
@@ -120,6 +161,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             const recommendations = await response.json();
             updateDashboard(recommendations);
+
+            // --- START: NEW - AUTOMATIC TAB SWITCH ON MOBILE ---
+            if (window.innerWidth < 1024) { // Tailwind's lg breakpoint is 1024px
+                tabResults.click(); // Programmatically click the results tab
+            }
+            // --- END: NEW ---
+
         } catch (error) {
             console.error("API call failed:", error);
             alert("Failed to get recommendations. Ensure the backend is running.");
@@ -160,13 +208,11 @@ document.addEventListener('DOMContentLoaded', () => {
         weatherSpinner.classList.remove('hidden');
         weatherButton.disabled = true;
 
-       navigator.geolocation.getCurrentPosition(async (position) => {
-    const { latitude: lat, longitude: lon } = position.coords;
-    // The API URL now points to YOUR backend server
-    const apiUrl = `/get_weather?lat=${lat}&lon=${lon}`; 
-    try {
-        const response = await fetch(apiUrl);
-//...
+        navigator.geolocation.getCurrentPosition(async (position) => {
+            const { latitude: lat, longitude: lon } = position.coords;
+            const apiUrl = `/get_weather?lat=${lat}&lon=${lon}`;
+            try {
+                const response = await fetch(apiUrl);
                 if (!response.ok) throw new Error('Could not fetch weather data.');
                 const weatherData = await response.json();
                 document.getElementById('temperature').value = weatherData.main.temp.toFixed(1);
@@ -355,19 +401,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const content = button.nextElementSibling;
                 const icon = button.querySelector('.accordion-icon');
                 
-                document.querySelectorAll('.accordion-content').forEach(cont => {
-                    if (cont !== content) {
-                        cont.classList.add('hidden');
-                    }
-                });
-                document.querySelectorAll('.accordion-icon').forEach(ic => {
-                    if (ic !== icon) {
-                        ic.classList.remove('rotate-180');
-                    }
-                });
-                
+                // This logic is simple: just toggle the clicked one.
+                // A more advanced version would close others.
                 content.classList.toggle('hidden');
-                icon.classList.toggle('rotate-180');
+                if (icon) {
+                    icon.classList.toggle('rotate-180');
+                }
             });
         });
     }
