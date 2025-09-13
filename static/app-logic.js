@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const populateCropSelector = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:5000/get_crop_names');
+            const response = await fetch('/get_crop_names');
             if (!response.ok) throw new Error(`Network response was not ok`);
             const data = await response.json();
             allCropsList = data.crop_names;
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
             rainfall: parseFloat(document.getElementById('rainfall').value),
         };
         try {
-            const response = await fetch('http://127.0.0.1:5000/predict', {
+              const response = await fetch('/predict', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(inputData)
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             dashboard.classList.add('hidden');
             loadingSpinner.classList.remove('hidden');
-            const response = await fetch('http://127.0.0.1:5000/get_crop_info', {
+           const response = await fetch('/get_crop_info', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ crop_name: selectedCrop })
