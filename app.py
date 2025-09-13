@@ -6,7 +6,8 @@ import pandas as pd
 import os
 
 # --- Initialize App ---
-app = Flask(__name__, template_folder='.', static_folder='.')
+app = Flask(__name__, template_folder='.', static_folder='static')
+
 CORS(app)
 
 # --- Load Model and Data ---
@@ -166,3 +167,4 @@ def get_crop_info():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
+
